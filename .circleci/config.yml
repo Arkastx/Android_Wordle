@@ -12,6 +12,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Set Gradlew Permissions
+          command: chmod +x ./gradlew
+      - run:
           name: Download dependencies
           command: ./gradlew dependencies
       - run:
