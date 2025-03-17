@@ -15,6 +15,9 @@ jobs:
           name: Set Gradlew Permissions
           command: chmod +x ./gradlew
       - run:
+          name: Convert line endings
+          command: "find . -type f -print0 | xargs -0 dos2unix"
+      - run:
           name: Download dependencies
           command: ./gradlew dependencies
       - run:
