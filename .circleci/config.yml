@@ -29,9 +29,6 @@ jobs:
       - run:
           name: Build APK
           command: ./gradlew assembleRelease
-      - run:
-          name: Store APK as an artifact
-          command: echo "Storing APK"
       - store_artifacts:
           path: app/build/outputs/apk/release/app-release.apk
           destination: app-release.apk
