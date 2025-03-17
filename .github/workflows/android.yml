@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -22,6 +22,14 @@ jobs:
         distribution: 'zulu'
         java-version: '11'
 
+    - name: Cache Gradle
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
     - name: Download dependencies
       run: ./gradlew build --no-daemon
 
@@ -32,7 +40,7 @@ jobs:
       run: ./gradlew assembleRelease --no-daemon
 
     - name: Upload APK
-      uses: actions/upload-artifact@91b8f2d4f4a3e6b5e4b6e3e3e3e3e3e3e3e3e3e
+      uses: actions/upload-artifact@v2
       with:
         name: app-release.apk
         path: app/build/outputs/apk/release/app-release.apk
